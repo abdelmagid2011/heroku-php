@@ -14,9 +14,10 @@ $app->register(new Silex\Provider\MonologServiceProvider(), array(
 ));
 
 // Our web handlers
-
-$app->get('/', './game.php');
-$app->post('/', './game.php');
+$app->match('/', function (Silex\Application $app, $stockcode) use ($toys) {     
+    $app['monolog']->addDebug('logging output.');
+	return new Response('game.php');
+})->method('GET|POST');
 $app->get('/paymentCallback.php', function() use($app) {
   $app['monolog']->addDebug('logging output.');
     return new Response('paymentCallback.php');

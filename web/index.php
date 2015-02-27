@@ -1,53 +1,25 @@
-<html>
-	<header>
-	</header/>
-	<body>
-		<div class="fb-like" data-send="true" data-width="450" data-show-faces="true">
-		</div>
-		<h1 id="fb-welcome"></h1>
-		<div>
-			 <input type="button" value="Capacity Chart" onclick="initApp();">
-		</div>
-		<script>
-		function initApp(){
-			  window.fbAsyncInit = function() {
-				FB.init({
-				  appId      : '404839423029580',
-				  xfbml      : true,
-				  version    : 'v2.2'
-				});
+<?php
 
-				function onLogin(response) {
-				  if (response.status == 'connected') {
-					FB.api('/me?fields=first_name', function(data) {
-					  var welcomeBlock = document.getElementById('fb-welcome');
-					  welcomeBlock.innerHTML = 'Hello, ' + data.first_name + '!';
-					});
-				  }
-				}
+require('../vendor/autoload.php');
 
-				FB.getLoginStatus(function(response) {
-				  // Check login status on load, and if the user is
-				  // already logged in, go directly to the welcome message.
-				  if (response.status == 'connected') {
-					onLogin(response);
-				  } else {
-					// Otherwise, show Login dialog first.
-					FB.login(function(response) {
-					  onLogin(response);
-					}, {scope: 'user_friends, email'});
-				  }
-				});
-			  };
+$app = new Silex\Application();
+$app['debug'] = true;
 
-			  (function(d, s, id){
-				 var js, fjs = d.getElementsByTagName(s)[0];
-				 if (d.getElementById(id)) {return;}
-				 js = d.createElement(s); js.id = id;
-				 js.src = "//connect.facebook.net/en_US/sdk.js";
-				 fjs.parentNode.insertBefore(js, fjs);
-			   }(document, 'script', 'facebook-jssdk'));
-		}
-		</script>
-	</body>
-</html>
+// Register the monolog logging service
+$app->register(new Silex\Provider\MonologServiceProvider(), array(
+  'monolog.logfile' => 'php://stderr',
+));
+
+// Our web handlers
+
+$app->get('/', function() use($app) {
+  $app['monolog']->addDebug('logging output.');
+    return new Response('index.php');
+});
+$app->get('/paymentCallback.php', function() use($app) {
+  $app['monolog']->addDebug('logging output.');
+    return new Response('paymentCallback.php');
+});
+$app->run();
+
+?>

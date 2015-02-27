@@ -2,6 +2,9 @@
 
 require('../vendor/autoload.php');
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 $app = new Silex\Application();
 $app['debug'] = true;
 
@@ -16,7 +19,7 @@ $app->get('/', function() use($app) {
   $app['monolog']->addDebug('logging output.');
     return new Response('game.php');
 });
-$app->post('/', function($request) use($app) {
+$app->post('/', function(Request $request) use($app) {
   $app['monolog']->addDebug('logging output.');
     return new Response('game.php');
 });
@@ -24,7 +27,7 @@ $app->get('/paymentCallback.php', function() use($app) {
   $app['monolog']->addDebug('logging output.');
     return new Response('paymentCallback.php');
 });
-$app->post('/paymentCallback.php', function($request) use($app) {
+$app->post('/paymentCallback.php', function(Request $request) use($app) {
   $app['monolog']->addDebug('logging output.');
     return new Response('paymentCallback.php');
 });

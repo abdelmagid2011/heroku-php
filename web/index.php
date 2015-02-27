@@ -16,7 +16,15 @@ $app->get('/', function() use($app) {
   $app['monolog']->addDebug('logging output.');
     return new Response('game.php');
 });
+$app->post('/', function() use($app) {
+  $app['monolog']->addDebug('logging output.');
+    return new Response('game.php');
+});
 $app->get('/paymentCallback.php', function() use($app) {
+  $app['monolog']->addDebug('logging output.');
+    return new Response('paymentCallback.php');
+});
+$app->post('/paymentCallback.php', function() use($app) {
   $app['monolog']->addDebug('logging output.');
     return new Response('paymentCallback.php');
 });

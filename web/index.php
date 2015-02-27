@@ -14,7 +14,7 @@ $app->register(new Silex\Provider\MonologServiceProvider(), array(
 ));
 
 // Our web handlers
-$app->match('/', function (Silex\Application $app, $stockcode) use ($toys) {     
+$app->match('/', function (Silex\Application $app) use ($app) {     
     $app['monolog']->addDebug('logging output.');
 	return new Response('game.php');
 })->method('GET|POST');

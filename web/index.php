@@ -32,16 +32,30 @@ $app->post('/paymentCallback.php', function(Request $request) use($app) {
     return new Response('paymentCallback.php');
 });
 
-$app->get('/assets/{name}', function( $name,Request $request ) use ( $app ) {
-	$full_name = 'assets/'.$name;
+$app->get('/assets/{parent}/{name}', function( $parent,$name,Request $request ) use ( $app ) {
+	$full_name = 'assets/'.$parent.'/'.$name;
 	if ( !file_exists( $full_name ) )
 	{
-		throw new \Exception( 'File not found'.$full_name );
+		throw new \Exception( 'File not found -> '.$full_name );
 	}
 	$data = file_get_contents($full_name);
-	$out = new Response($data, 200, array('Content-type' => 'image/jpeg'));
+	if($parent=='image'){
+		$out = new Response($data, 200, array('Content-type' => 'image/jpeg'));
+	}else if($parent=='sound'){
+		$out = new Response($data, 200, array('Content-type' => 'audio/mpeg'));
+	}
 	return $out;
 });
+$app->get('/scripts/{name}', function($name,Request $request ) use ( $app ) {
+	$full_name = 'scripts/'.$name;
+	if ( !file_exists( $full_name ) )
+	{
+		throw new \Exception( 'File not found -> '.$full_name );
+	}
+	$data = file_get_contents($full_name);
+	return $data;
+});
+
 
 $app->run();
 

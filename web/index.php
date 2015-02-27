@@ -19,4 +19,5 @@ $app->get('/', function() use($app) {
 
 $app->run();
 
+echo 'is it pure php';
 ?>

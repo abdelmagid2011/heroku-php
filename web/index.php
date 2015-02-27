@@ -33,12 +33,12 @@ $app->post('/paymentCallback.php', function(Request $request) use($app) {
 });
 
 $app->get('/assets/{name}', function( $name,Request $request ) use ( $app ) {
-	$full_name = ''.$name;
+	$full_name = 'assets/'.$name;
 	if ( !file_exists( $full_name ) )
 	{
-		throw new \Exception( 'File not found' );
+		throw new \Exception( 'File not found'.$full_name );
 	}
-	$data = file_get_contents($storage_path . $thumb_name);
+	$data = file_get_contents($full_name);
 	$out = new Response($data, 200, array('Content-type' => 'image/jpeg'));
 	return $out;
 });

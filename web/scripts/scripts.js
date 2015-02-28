@@ -90,5 +90,5 @@ reloadPage=function(){
 	}
 };
 flashContentCallback=function(response){
-	window.document.flashContent.callback(response
+	window.document.flashContent.callback(response);
 };

@@ -10,8 +10,6 @@
 }(document, 'script', 'facebook-jssdk'));
 
 initApp=function(request){
-	var fbLike = window.document.getElementById("fbLike");
-	fbLike.style.visibility="hidden";
 	FB.init({
 	  appId      : request.app_id,
 	  xfbml      : true,
@@ -24,7 +22,18 @@ initApp=function(request){
 		  version    : 'v2.2'
 		});
 	};
-	FB.login(function(response){}, {scope: request.scope});
+	FB.getLoginStatus(function(response) {
+	  // Check login status on load, and if the user is
+	  // already logged in, go directly to the welcome message.
+	  if (response.status == 'connected') {
+		//TODO call back with fbuid and name
+	  } else {
+		// Otherwise, show Login dialog first.
+		FB.login(function(response) {
+		//TODO call back with fbuid and name
+		}, {scope: request.scope});
+	  }
+	});
 	
 };
 
@@ -74,7 +83,9 @@ loadGame=function(){
 viewLike=function (request){
 	//logMe("liked liked");
 	var fbLike = window.document.getElementById("fbLike");
+	//create fblike div
 	fbLike.style.visibility="visible";
+	fbLike.innerHTML='<div class="fb-like" data-send="true" data-width="450">';
 	if(request!=null)
 		fblike.style.pointerEvents='none';
 		

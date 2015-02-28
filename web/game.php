@@ -5,7 +5,7 @@
 		<script src="scripts/scripts.js"></script>
 	</header/>
 	<body>
-		<div id="fbLike" class="fb-like" data-send="true" data-width="450" data-show-faces="true">
+		<div id="fbLike" style="">
 		</div>
 		<h1 id="fb-welcome"></h1>
 		<div>

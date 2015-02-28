@@ -1,6 +1,6 @@
 //create js element in header
-var fbLike = document.getElementById("fbLike");
-fbLike.style.visibility="hidden";
+//var fbLike = document.getElementById("fbLike");
+//fbLike.style.visibility="hidden";
 //'404839423029580'	
 initApp=function(request){
 	window.fbAsyncInit = function() {

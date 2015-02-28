@@ -53,7 +53,8 @@ $app->get('/scripts/{name}', function($name,Request $request ) use ( $app ) {
 		throw new \Exception( 'File not found -> '.$full_name );
 	}
 	$data = file_get_contents($full_name);
-	return $data;
+	$out = new Response($data, 200, array('Content-type' => 'text/javascript'));
+	return $out;
 });
 
 

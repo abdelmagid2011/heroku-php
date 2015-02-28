@@ -66,7 +66,8 @@ FB.getLoginStatus(function(response) {
 
 //log our data to console
 logMe=function(val){
-	console.log(val);
+	//console.log(val);
+	alert(val);
 };
 
 //swf object load the game
@@ -93,18 +94,20 @@ viewLike=function (request){
 	if(request!=null){
 		if(request.liked==1)
 			fblike.style.pointerEvents='none';
-			
+		else{
+			FB.Event.subscribe('edge.create',function(response) {
+					//flashContentCallback(response);
+					logMe('liked');
+					var fbLike = window.document.getElementById("fbLike");
+					fblike.style.pointerEvents='none';
+				}
+			);
+		}
 		fbLike.style.display="inline";
 	}else{
 		fbLike.innerHTML='<div class="fb-like" data-send="true" data-width="450">';
 	}
 		
-	FB.Event.subscribe('edge.create',function(response) {
-			//flashContentCallback(response);
-			logMe('liked');
-			fblike.style.pointerEvents='none';
-		}
-	);
 };
 //reload the page
 reloadPage=function(){

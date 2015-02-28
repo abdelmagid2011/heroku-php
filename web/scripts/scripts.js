@@ -1,5 +1,5 @@
 //create js element in header
-
+var app_id='';
 //'404839423029580'	
 (function(d, s, id){
  var js, fjs = d.getElementsByTagName(s)[0];
@@ -8,8 +8,9 @@
  js.src = "//connect.facebook.net/en_US/sdk.js";
  fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
-
+viewLike(null);
 initApp=function(request){
+	app_id=request.app_id;
 	FB.init({
 	  appId      : request.app_id,
 	  xfbml      : true,
@@ -67,6 +68,7 @@ logMe=function(val){
 
 //swf object load the game
 loadGame=function(){
+	var params = {};
 	params.quality = "high";
 	params.bgcolor = "#000000";
 	params.wmode='opaque';
@@ -82,12 +84,17 @@ loadGame=function(){
 
 viewLike=function (request){
 	//logMe("liked liked");
+	
 	var fbLike = window.document.getElementById("fbLike");
 	//create fblike div
-	fbLike.style.visibility="visible";
-	fbLike.innerHTML='<div class="fb-like" data-send="true" data-width="450">';
-	if(request!=null)
+	
+	if(request!=null){
 		fblike.style.pointerEvents='none';
+		fbLike.style.visibility="hidden";
+	}else{
+		fbLike.innerHTML='<div class="fb-like" data-send="true" data-width="450">';
+		fbLike.style.visibility="visible";
+	}
 		
 	FB.Event.subscribe('edge.create',function(response) {
 			//flashContentCallback(response);
@@ -100,12 +107,12 @@ viewLike=function (request){
 reloadPage=function(){
 	if (window.XMLHttpRequest)
 	{// code for IE7+, Firefox, Chrome, Opera, Safari
-		top.window.location.href="//apps.facebook.com/spongepoker/?start_session=true";
+		top.window.location.href="//apps.facebook.com/"+app_id+"/?start_session=true";
 		self.parent.location.reload();
 	}
 	else
 	{// code for IE6, IE5
-		window.top.location.href="//apps.facebook.com/spongepoker/?start_session=true";
+		window.top.location.href="//apps.facebook.com/"+app_id+"/?start_session=true";
 		self.parent.location.reload();
 	}
 };

@@ -105,9 +105,10 @@ viewLike=function (request){
 		}
 		fbLike.style.display="inline";
 	}else{
-		fbLike.innerHTML='<div class="fb-like" data-send="true" data-width="450">';
-	}
-		
+		fbLike.class="fb-like";
+		fbLike.data-send="true";
+		fbLike.data-width="450";
+	}	
 };
 //reload the page
 reloadPage=function(){

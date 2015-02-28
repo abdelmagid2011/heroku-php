@@ -1,14 +1,17 @@
 //create js element in header
 var app_id='';
 //'404839423029580'	
-(function(d, s, id){
- var js, fjs = d.getElementsByTagName(s)[0];
- if (d.getElementById(id)) {return;}
- js = d.createElement(s); js.id = id;
- js.src = "//connect.facebook.net/en_US/sdk.js";
- fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-viewLike(null);
+onLoadComplete=function(){
+	(function(d, s, id){
+	 var js, fjs = d.getElementsByTagName(s)[0];
+	 if (d.getElementById(id)) {return;}
+	 js = d.createElement(s); js.id = id;
+	 js.src = "//connect.facebook.net/en_US/sdk.js";
+	 fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+	viewLike(null);
+};
+
 initApp=function(request){
 	app_id=request.app_id;
 	FB.init({
@@ -87,7 +90,6 @@ viewLike=function (request){
 	
 	var fbLike = window.document.getElementById("fbLike");
 	//create fblike div
-	
 	if(request!=null){
 		fblike.style.pointerEvents='none';
 		fbLike.style.visibility="hidden";

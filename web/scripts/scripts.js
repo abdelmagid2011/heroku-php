@@ -88,19 +88,16 @@ loadGame=function(){
 
 viewLike=function (request){
 	//logMe("liked liked");
-	
 	var fbLike = window.document.getElementById("fbLike");
 	//create fblike div
 	fbLike.style=null;
 	if(request!=null){
-		if(request.liked==1)
-			fblike.style="pointerEvents:'none';";
-		else{
-			FB.Event.subscribe('edge.create',function(response) {
-					//flashContentCallback(response);
-					logMe('liked');
-					var fbLike = window.document.getElementById("fbLike");
-					fblike.style="pointerEvents:'none';";
+		if(request.liked==1){
+			fbLike.style="pointerEvents:'none';";
+		}else{
+			FB.Event.subscribe('edge.create',function(response){
+					viewLike({liked:1});
+					flashContentCallback(response);
 				}
 			);
 		}
@@ -119,6 +116,31 @@ reloadPage=function(){
 		self.parent.location.reload();
 	}
 };
+onFacebookUiCall=function(obj){
+    if(obj.method=='feed'){
+    	    FB.ui({method:obj.method,
+				   name:obj.name,
+				   link:"http://apps.facebook.com/"+app_id+"/?ref=timeline",
+				   picture:obj.pic,
+				   caption:obj.caption,
+				   description:obj.desc
+				   },function(response){
+						flashContentCallback(response);
+				   }
+			);
+    }else{
+    	lastObj=obj;
+	    FB.ui({
+               method:obj.method,
+               message:obj.message,
+               to:obj.frindsId
+			   },function(response){
+					flashContentCallback(response);
+				}
+			);
+    }
+}
 flashContentCallback=function(response){
-	window.document.flashContent.callback(response);
+	//window.document.flashContent.callback(response);
+     console.log(JSON.stringify(response));
 };

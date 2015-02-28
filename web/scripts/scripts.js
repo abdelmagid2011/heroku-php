@@ -103,7 +103,7 @@ viewLike=function (request){
 				}
 			);
 		}
-		fbLike.style.display="inline";
+		fbLike.style=null;
 	}
 };
 //reload the page

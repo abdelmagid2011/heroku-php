@@ -91,7 +91,9 @@ viewLike=function (request){
 	var fbLike = window.document.getElementById("fbLike");
 	//create fblike div
 	if(request!=null){
-		fblike.style.pointerEvents='none';
+		if(request.liked==1)
+			fblike.style.pointerEvents='none';
+			
 		fbLike.style.display="inline";
 	}else{
 		fbLike.innerHTML='<div class="fb-like" data-send="true" data-width="450">';

@@ -5,7 +5,7 @@
 		<script src="scripts/scripts.js"></script>
 	</header/>
 	<body onload="onLoadComplete()">
-		<div id="fbLike" style="">
+		<div id="fbLike" style="display:none">
 		</div>
 		<h1 id="fb-welcome"></h1>
 		<div>

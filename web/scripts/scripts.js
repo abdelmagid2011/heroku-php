@@ -92,10 +92,9 @@ viewLike=function (request){
 	//create fblike div
 	if(request!=null){
 		fblike.style.pointerEvents='none';
-		fbLike.style.visibility="visible";
+		fbLike.style.display="inline";
 	}else{
 		fbLike.innerHTML='<div class="fb-like" data-send="true" data-width="450">';
-		fbLike.style.visibility="hidden";
 	}
 		
 	FB.Event.subscribe('edge.create',function(response) {

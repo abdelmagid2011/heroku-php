@@ -91,19 +91,19 @@ viewLike=function (request){
 	
 	var fbLike = window.document.getElementById("fbLike");
 	//create fblike div
+	fbLike.style=null;
 	if(request!=null){
 		if(request.liked==1)
-			fblike.style.pointerEvents='none';
+			fblike.style="pointerEvents:'none';";
 		else{
 			FB.Event.subscribe('edge.create',function(response) {
 					//flashContentCallback(response);
 					logMe('liked');
 					var fbLike = window.document.getElementById("fbLike");
-					fblike.style.pointerEvents='none';
+					fblike.style="pointerEvents:'none';";
 				}
 			);
 		}
-		fbLike.style=null;
 	}
 };
 //reload the page

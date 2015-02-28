@@ -2,6 +2,7 @@
 ?>
 <html>
 	<header>
+		<script src="scripts/scripts.js"></script>
 	</header/>
 	<body>
 		<div id="fbLike" class="fb-like" data-send="true" data-width="450" data-show-faces="true">

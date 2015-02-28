@@ -1,6 +1,5 @@
 //create js element in header
-//var fbLike = document.getElementById("fbLike");
-//fbLike.style.visibility="hidden";
+
 //'404839423029580'	
 (function(d, s, id){
  var js, fjs = d.getElementsByTagName(s)[0];
@@ -11,6 +10,8 @@
 }(document, 'script', 'facebook-jssdk'));
 
 initApp=function(request){
+	var fbLike = window.document.getElementById("fbLike");
+	fbLike.style.visibility="hidden";
 	FB.init({
 	  appId      : request.app_id,
 	  xfbml      : true,
@@ -23,6 +24,8 @@ initApp=function(request){
 		  version    : 'v2.2'
 		});
 	};
+	FB.login(function(response){}, {scope: request.scope});
+	
 };
 
 onLogin=function(response) {
@@ -70,7 +73,7 @@ loadGame=function(){
 
 viewLike=function (request){
 	//logMe("liked liked");
-	var fbLike = document.getElementById("fbLike");
+	var fbLike = window.document.getElementById("fbLike");
 	fbLike.style.visibility="visible";
 	if(request!=null)
 		fblike.style.pointerEvents='none';

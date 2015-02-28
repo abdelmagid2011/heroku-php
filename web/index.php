@@ -23,13 +23,12 @@ $app->post('/', function(Request $request) use($app) {
   $app['monolog']->addDebug('logging output.');
     return file_get_contents('game.php');;
 });
-$app->get('/paymentCallback.php', function() use($app) {
-  $app['monolog']->addDebug('logging output.');
-    return new Response('paymentCallback.php');
-});
 $app->post('/paymentCallback.php', function(Request $request) use($app) {
   $app['monolog']->addDebug('logging output.');
-    return new Response('paymentCallback.php');
+	require('paymentCallback.php');
+	$request = $request->get('signed_request');
+	$request_type = $request->get('method');
+    return handlePayRequest($request,$request_type);;
 });
 
 $app->get('/assets/{parent}/{name}', function( $parent,$name,Request $request ) use ( $app ) {

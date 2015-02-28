@@ -1,18 +1,11 @@
 <?php
 
-$app_secret = '528f6c608c5d388ca53869c5dbc65452';
-
-// Validate request is from Facebook and parse contents for use.
+function handlePayRequest($request,$request_type){
 $request = parse_signed_request($_POST['signed_request'], $app_secret);
-
-// Get request type.
-$request_type = $_POST['method'];
-
-// Setup response.
 $response = '';
-
 if ($request == null) {
 // handle an unauthenticated request here
+	echo 'un authonticated request';
 }
 
 if ($request_type == 'payments_get_item_price') {
@@ -72,7 +65,7 @@ $response['method'] = $request_type;
 
 // Send data back
 echo json_encode($response);
-
+}
 // You can find the following functions and more details
 // on https://developers.facebook.com/docs/authentication/canvas
 function parse_signed_request($signed_request, $secret) {

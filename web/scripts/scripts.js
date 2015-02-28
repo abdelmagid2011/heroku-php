@@ -9,7 +9,7 @@ onLoadComplete=function(){
 	 js.src = "//connect.facebook.net/en_US/sdk.js";
 	 fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));
-	viewLike(null);
+	//viewLike(null);
 };
 
 initApp=function(request){
@@ -104,11 +104,7 @@ viewLike=function (request){
 			);
 		}
 		fbLike.style.display="inline";
-	}else{
-		fbLike['class']="fb-like";
-		fbLike['data-send']="true";
-		fbLike['data-width']="450";
-	}	
+	}
 };
 //reload the page
 reloadPage=function(){

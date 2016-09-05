@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js">
+	</script>
+	<body>
+
+		<div ng-app="myApp" ng-controller="myCtrl">
+
+			<div class="title">Pregnent Calculator</div>
+			<table>
+				<tbody>
+					<tr class="odd">
+						<td colspan="2">LMP or EDD</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<select ng-model="calcType" ng-change="calculate();">
+								<option value="LMP">LMP</option>
+								<option value="EDD">EDD</option>
+							</select>
+							<input type="text" ng-model="calcDate" ng-blur="calculate();">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">Your estimated scan dates are below:</td>
+						</tr>
+						<tr class="odd">
+							<td>13 Weeks:</td>
+							<td>{{week13}}</td>
+						</tr>
+						<tr class="odd">
+							<td>20 Weeks:</td>
+							<td>{{week20}}</td>
+						</tr>
+						<tr class="odd" ng-show="stillPreg">
+							<td width="290" id="due-today" colspan="2">Today you are {{weeks}} weeks and {{days}} days pregnant</td>
+						</tr>
+						<tr class="odd" ng-show="calcType != 'EDD'">
+							<td width="290" id="due-today" colspan="2">EDD is {{pregDate}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<script>
+Date.prototype.yyyymmdd = function() {
+  var mm = this.getMonth() + 1; // getMonth() is zero-based
+  var dd = this.getDate();
+	
+	if(mm<10)
+		mm = '0'+ mm.toString();
+	if(dd<10)
+		dd = '0'+ dd.toString();
+	
+  return [dd, mm ,this.getFullYear()].join('/'); // padding
+};
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+    $scope.calcType = "EDD";
+    $scope.calcDate = "01/04/2017";
+	$scope.todayDate = new Date();
+	$scope.calculate = function (){
+		var d = $scope.calcDate.split("/");
+		var dat = new Date(d[2],d[1],d[0]);
+		dat.setMonth(dat.getMonth()-1);
+		if($scope.calcType == "EDD"){
+			dat.setDate(dat.getDate() - 252);
+			$scope.calculateMon(dat);
+		}else{
+			$scope.calculateMon(dat);
+		}
+	}
+	
+	$scope.calculateMon = function (dat){
+		var timeDiff = Date.now() - dat;
+	
+		var week13 = new Date(dat.setDate(dat.getDate() + 91));
+		var week20 = new Date(dat.setDate(dat.getDate() + 49));
+		var pregDate = new Date(dat.setDate(dat.getDate() + 112));
+		$scope.week20 = week20.yyyymmdd();
+		$scope.week13 = week13.yyyymmdd();
+		$scope.pregDate = pregDate.yyyymmdd();
+		
+		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+		$scope.weeks = Math.ceil(diffDays / 7);
+		$scope.days = diffDays % 7;
+		
+		$scope.stillPreg = timeDiff > 0;
+	}
+	
+	$scope.calculate();
+	
+});
+			</script>
+
+		</body>
+	</html>
+
+	
